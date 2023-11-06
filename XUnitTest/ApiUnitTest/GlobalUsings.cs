@@ -1,0 +1,9 @@
+global using Xunit;
+global using Strategy;
+global using Factory;
+global using AppCore;
+global using Strategy.AdditionStrategy;
+global using Strategy.DivisionStrategy;
+global using Strategy.MultiplicationStrategy;
+global using Strategy.RemainderStrategy;
+global using Strategy.SubtractionStrategy;

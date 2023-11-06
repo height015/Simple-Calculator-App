@@ -8,12 +8,13 @@ public class DivisionStrategy : ICalculatorOperator
 {
     public AppApiResponse<double> Calculate(double operand1, double operand2)
     {
-        if (operand2 == 0)
-        {
-            throw new ArgumentException($" Maths Error! Division by {operand2} not allowed.");
-        }
         try
         {
+            if (operand2 == 0)
+        {
+            throw new DivideByZeroException($" Maths Error! Division by {operand2} not allowed.");
+        }
+       
             var result = operand1 / operand2;
             return AppApiResponse<double>.Create(HttpStatusCode.OK, "Successful", result);
         }

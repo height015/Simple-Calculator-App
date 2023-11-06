@@ -1,5 +1,6 @@
 ﻿
 using System.Net;
+using AppCore;
 using AppCore.Domain.History;
 using AppData.Contracts;
 using AppData.Infrastructure.Route;
@@ -7,6 +8,7 @@ using ApplicationApi.Mappers;
 using ApplicationApi.Models;
 using Factory;
 using Microsoft.AspNetCore.Mvc;
+using Strategy;
 
 namespace ApplicationApi.Controllers;
 [Route(CalculatorRoute.Calculator)]
