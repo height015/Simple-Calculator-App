@@ -3,7 +3,7 @@ using AppCore;
 
 namespace AppData.Repository;
 
-public interface IGenericRepository<T> where T: BaseEntity
+public interface IGenericRepository<T> where T: class
 {
     Task<T> Get(Guid Id);
     Task<IReadOnlyList<T>> GetAll();

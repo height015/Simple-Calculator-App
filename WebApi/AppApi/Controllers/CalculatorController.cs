@@ -24,6 +24,9 @@ public class CalculatorController : ControllerBase
     }
 
     [HttpPost("calculate")]
+    [ProducesResponseType(typeof(AppApiResponse<CalculatorRequestDTO>), 200)]
+    [ProducesResponseType(typeof(AppApiResponse<List<string>>), 400)]
+    
     public IActionResult Calculate([FromBody] CalculatorRequestDTO request)
     {
         var operation = _calculatorOperationFactory.CreateOperation(request.Operator);
@@ -41,11 +44,18 @@ public class CalculatorController : ControllerBase
     }
 
     [HttpGet("calculations")]
-    public IActionResult Calculated()
+    [ProducesResponseType(typeof(AppApiResponse<IEnumerable<CalculationHistoryDetailsDTO>>), 200)]
+    [ProducesResponseType(typeof(AppApiResponse<List<string>>), 400)]
+    [ProducesResponseType(typeof(AppApiResponse<List<string>>), 404)]
+    public IActionResult CalculationHistory()
     {
         var operation =  _calculationHistoryService.GetAll().Result;
         var retVal = operation.Select(z => z.AsDTO());
-        return Ok(retVal);
+        var result = new AppApiResponse<IEnumerable<CalculationHistoryDetailsDTO>>(
+                     HttpStatusCode.OK,
+                     "successful",
+                     retVal);
+        return Ok(result);
     }
 }
 

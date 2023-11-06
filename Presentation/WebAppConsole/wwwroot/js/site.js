@@ -5,6 +5,8 @@ let operand2 = '';
 document.addEventListener('DOMContentLoaded', (event) => {
     const resultElement = document.getElementById('result');
     const inputElement = document.getElementById('input');
+     fetchAndDisplayCalculationHistory();
+
     const resetInput = () => {
         operand1 = '';
         operator = '';
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         try {
             const url = 'https://localhost:7037/Calculator/calculate';
+
             const requestData = {
                 Opt1: parseFloat(operand1),
                 Operator: operator,
@@ -42,9 +45,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const responseData = await response.json();
             if (responseData.statusCode === 200) {
                 resultElement.textContent = responseData.data;
-                console.log(responseData);
+                fetchAndDisplayCalculationHistory();
             } else {
                 alert('Calculation failed: ' + responseData.statusMessage);
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    }
+    async function fetchAndDisplayCalculationHistory() {
+        try {
+            const calculationsUrl = 'https://localhost:7037/Calculator/calculations';
+            const calculationsResponse = await fetch(calculationsUrl);
+
+            if (!calculationsResponse.ok) {
+                throw new Error(`HTTP error! Status: ${calculationsResponse.status}`);
+            }
+
+            const calculationHistory = await calculationsResponse.json();
+            if (calculationHistory.statusCode === 200) {
+                const historyElement = document.querySelector('.calculation-history');
+                historyElement.innerHTML = ''; 
+                calculationHistory.data.forEach(item => {
+                    const para = document.createElement('p');
+                    console.log(item);
+                    para.textContent = item.opt1 + ' ' + item.operator + ' ' + item.opt2 + ' = ' + item.result;
+                    historyElement.appendChild(para);
+                });
             }
         } catch (error) {
             console.error('Fetch error:', error);
@@ -135,3 +162,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         inputElement.textContent = operand1 + ' ' + operator + ' ' + operand2;
     }
 });
+
+const closeHistoryBtn = document.querySelector('.close-history');
+const showHistoryBtn = document.querySelector('.show-history');
+const calculationHistory = document.querySelector('.calculation-history');
+
+showHistoryBtn.addEventListener('click', () => {
+    calculationHistory.style.display = "block";
+    showHistoryBtn.style.display = "none";
+    closeHistoryBtn.style.display = "block"
+});
+
+closeHistoryBtn.addEventListener('click', () => {
+    calculationHistory.style.display = "none";
+    showHistoryBtn.style.display = "block";
+    closeHistoryBtn.style.display = "none"
+}
+);

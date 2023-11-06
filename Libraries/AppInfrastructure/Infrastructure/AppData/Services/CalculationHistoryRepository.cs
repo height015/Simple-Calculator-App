@@ -11,5 +11,7 @@ public class CalculationHistoryRepository : GenericRepository<CalculationHistory
     public CalculationHistoryRepository(AppDbContext appDbContext) : base(appDbContext)
     {
     }
+
+    
 }
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppData.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     private readonly AppDbContext _appDbContext;
 	public GenericRepository(AppDbContext appDbContext)
@@ -16,7 +16,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     public async Task<T> Add(T entity)
     {
         await _appDbContext.AddAsync(entity);
-        await _appDbContext.SaveChangesAsync();
+         _appDbContext.SaveChanges();
         return entity;
     }
 

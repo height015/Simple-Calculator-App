@@ -14,7 +14,7 @@ public static class ServiceExt
 {
 	public static IServiceCollection ServiceConfigurationExt(this IServiceCollection services, IConfiguration configuration)
 	{
-		services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("AppConnectionString")));
+		services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnections")));
 		services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
         services.AddScoped<ICalculationHistoryService, CalculationHistoryRepository>();
         services.AddSingleton<CalculatorOperationFactory>();
