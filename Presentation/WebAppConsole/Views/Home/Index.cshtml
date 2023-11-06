@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Calculator";
+}
+    <div class="calc-wrapper">
+        <div class="resulttext">
+            <div id="input"></div>
+            <div id="result"></div>
+        </div>
+        <div class="row">
+            <button class="btn">7</button>
+            <button class="btn">8</button>
+            <button class="btn">9</button>
+            <button id="operator" class="btn">/</button>
+        </div>
+        <!-- Add similar button groups for other numbers and operations -->
+        <div class="row">
+            <button class="btn">4</button>
+            <button class="btn">5</button>
+            <button class="btn">6</button>
+            <button id="operator" class="btn">*</button>
+        </div>
+        <div class="row">
+            <button class="btn">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button id="operator" class="btn">+</button>
+        </div>
+        <div class="row">
+            <button class="btn">0</button>
+            <button class="btn">.</button>
+            <button class="btn">=</button>
+            <button id="operator" class="btn">-</button>
+        </div>
+        <div class="row">
+            <button id="operator" class="btn">x²</button>
+            <button id="operator" class="btn">√x</button>
+            <button id="operator" class="btn">%</button>
+            <button class="btn">DEL</button>
+        </div>
+        <button id="clear" class="btn">Clear</button>
+        <div id="clearFooter"></div>
+    </div>
+
